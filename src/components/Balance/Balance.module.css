@@ -1,0 +1,22 @@
+.sections {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.income {
+  color: green;
+  margin-right: 20px;
+}
+
+.expenses {
+  color: red;
+  margin-right: 20px;
+}
+
+.balance {
+  font-weight: 700;
+  font-size: 16px;
+  color: #5c6975;
+  margin-right: 10px;
+}

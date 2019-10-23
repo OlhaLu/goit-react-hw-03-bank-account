@@ -1,0 +1,24 @@
+.table {
+  margin: 0 auto 20px;
+  width: 80%;
+  border-spacing: 0;
+  box-shadow: 0px 2px 3px 0px rgba(29, 20, 112, 0.25);
+}
+
+.head {
+  background-color: #ebeef2;
+}
+
+.title {
+  padding: 25px 0;
+  border: none;
+  color: #535658;
+  font-weight: bold;
+}
+
+.transactions_body {
+  font-size: 14px;
+  color: #5c6975;
+  text-align: center;
+  padding: 13px 0;
+}
