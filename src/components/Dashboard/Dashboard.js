@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Controls from '../Controls/Controls';
 import Balance from '../Balance/Balance';
 import TransactionHistory from '../TransactionHistory/TransactionHistory';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// import { ToastContainer, toast } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 import styles from './Dashboard.module.css';
 import uuidv1 from 'uuid/v1';
 
@@ -21,26 +21,56 @@ export default class Dashboard extends Component {
     balance: 0,
   };
 
+  componentDidMount() {
+    const t = localStorage.getItem('transactions');
+    if (t) {
+      this.setState({ transactions: JSON.parse(t) });
+    }
+    const b = localStorage.getItem('balance');
+    if (b) {
+      this.setState({ balance: JSON.parse(b) });
+    }
+  }
+
+  componentDidUpdate(prevState) {
+    const { transactions, balance } = this.state;
+
+    if (transactions !== prevState.transactions) {
+      localStorage.setItem(
+        'transactions',
+        JSON.stringify(transactions),
+      )  
+    }
+    if (balance !== prevState.balance) {
+      localStorage.setItem(
+        'balance',
+        JSON.stringify(balance),
+      )
+  }
+}
+
   handleChangeDeposit = amount => {
   if (amount === null || amount <= 0) {
-    toast.info('Введите сумму для проведения операции!');
+    // toast.info('Введите сумму для проведения операции!');
     return
   }
   this.setState(({ transactions, balance }) => {
+    localStorage.setItem(transactions, balance);
     return {
       transactions: [...transactions, this.makeOperations(amount, 'deposit')],
       balance: balance + amount,
     };
+    
   })
 }
 
   handleChangeWithdrawl = amount => {
     if (amount <= 0) {
-      toast.error('Некорректно введена сумма! Невозможно провести операцию!');
+      // toast.error('Некорректно введена сумма! Невозможно провести операцию!');
       return;
     }
     if (amount > this.state.balance ) {
-      toast.warn('На счету недостаточно средств для проведения операции!');
+      // toast.warn('На счету недостаточно средств для проведения операции!');
       return;
     }  
   this.setState(({ transactions, balance }) => {
@@ -86,7 +116,7 @@ const { transactions } = this.state;
             expenses={this.transactionsOperations('withdrawal')}
             />
               <TransactionHistory transactions={transactions} />
-                <ToastContainer />
+                {/* <ToastContainer /> */}
         </div>
     );
   }
