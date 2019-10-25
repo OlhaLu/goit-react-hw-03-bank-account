@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import Controls from '../Controls/Controls';
 import Balance from '../Balance/Balance';
 import TransactionHistory from '../TransactionHistory/TransactionHistory';
-// import { ToastContainer, toast } from 'react-toastify';
-// import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import styles from './Dashboard.module.css';
 import uuidv1 from 'uuid/v1';
 
@@ -51,7 +51,7 @@ export default class Dashboard extends Component {
 
   handleChangeDeposit = amount => {
   if (amount === null || amount <= 0) {
-    // toast.info('Введите сумму для проведения операции!');
+    toast.info('Введите сумму для проведения операции!');
     return
   }
   this.setState(({ transactions, balance }) => {
@@ -66,11 +66,11 @@ export default class Dashboard extends Component {
 
   handleChangeWithdrawl = amount => {
     if (amount <= 0) {
-      // toast.error('Некорректно введена сумма! Невозможно провести операцию!');
+      toast.error('Некорректно введена сумма! Невозможно провести операцию!');
       return;
     }
     if (amount > this.state.balance ) {
-      // toast.warn('На счету недостаточно средств для проведения операции!');
+      toast.warn('На счету недостаточно средств для проведения операции!');
       return;
     }  
   this.setState(({ transactions, balance }) => {
@@ -116,7 +116,7 @@ const { transactions } = this.state;
             expenses={this.transactionsOperations('withdrawal')}
             />
               <TransactionHistory transactions={transactions} />
-                {/* <ToastContainer /> */}
+                <ToastContainer />
         </div>
     );
   }
